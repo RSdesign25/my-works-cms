@@ -1,6 +1,43 @@
 <template>
-  <el-container>
-    <!-- <el-header>
+  <el-table
+    :data="works"
+    style="width: 100%">
+    <el-table-column
+      label="Date"
+      width="180">
+      <template slot-scope="scope">
+        <i class="el-icon-time"></i>
+        <span style="margin-left: 10px">{{ scope.row.updated.toDate() | dateFilter }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="Title"
+      width="180">
+      <template slot-scope="scope">
+        <el-popover trigger="hover" placement="top">
+          <p>Name: {{ scope.row.title }}</p>
+          <p>Addr: {{ scope.row.siteLink }}</p>
+          <div slot="reference" class="name-wrapper">
+            <el-tag size="medium">{{ scope.row.title }}</el-tag>
+          </div>
+        </el-popover>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="Operations">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">編集</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="remove(scope.row.id)">削除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+  <!-- <el-container>
+    <el-header>
       <el-row type="flex" justify="center" align="middle">
         <el-col :span="24">
           <h1>My-Works-CMS</h1>
@@ -14,8 +51,8 @@
         <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
       </el-row>
     </el-main>
-    <el-footer>Footer</el-footer> -->
-  </el-container>
+    <el-footer>Footer</el-footer>
+  </el-container> -->
 
   <!-- <div class="container mt-5">
 
@@ -45,49 +82,29 @@
 
 
 <script>
+import moment from "moment"
 export default {
-  // data(){
-  //   return{
-  //     works
-  //   }
-  // },
-  // created() {
-  //   // this.$store.dispatch('fetchUsers')
-  //   this.$store.dispatch("works/init")
-  // }
-}
-</script>
-
-<style lang="scss" scoped>
-.el-header{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-  .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
+  created() {
+    // this.$store.dispatch('fetchUsers')
+    this.$store.dispatch("works/init")
+  },
+  computed:{
+    works(){
+      return this.$store.state.works.works
+    }
+  },
+  methods:{
+    remove(id){
+      this.$store.dispatch("works/remove",id)
+    },
+    handleEdit(index, row) {
+        console.log(index, row);
+    },
+  },
+  filters:{
+    dateFilter(date){
+      return moment(date).format("YYYY/MM/DD HH:mm:ss")
     }
   }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
-</style>
+}
+</script>
