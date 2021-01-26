@@ -17,7 +17,8 @@ export const actions = {
     if(work.title.trim()) {
       worksRef.add({
         title: work.title,
-        siteLink:work.siteLink,
+        siteLink:"https://" + work.siteLink,
+        pic: work.pic,
         created: firebase.firestore.FieldValue.serverTimestamp(),
         updated: firebase.firestore.FieldValue.serverTimestamp()
       })

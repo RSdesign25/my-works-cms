@@ -1,22 +1,12 @@
 <template>
-  <!-- <div class="form">
-    <form @submit.prevent="add">
-      <input v-model="work.title">
-      <input v-model="work.siteLink">
-      <button>Add</button>
-    </form>
-    <div>
-      <el-input placeholder="ページタイトルを入力してください" v-model="work.title">
-      </el-input>
-    </div>
-    <div style="margin-top: 15px;">
-      <el-input placeholder="Please input" v-model="work.siteLink">
-        <template slot="prepend">https://</template>
-      </el-input>
-    </div>
-  </div>  -->
   <el-container>
-    <el-header>INPUT SCREEN</el-header>
+    <el-header>
+      <el-row>
+        <el-col :span="24">
+          <h1>INPUT SCREEN</h1>
+        </el-col>
+      </el-row>
+    </el-header>
     <el-main>
         <el-row>
           <el-col :span="24">
@@ -32,20 +22,17 @@
           </el-col>
         </el-row>
         <el-row>
+          <el-col :span="24">
+            <el-input placeholder="画像URLを入力してください" v-model="work.pic">
+              <template slot="prepend">https://</template>
+            </el-input>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center" align="center">
           <el-button type="info" plain @click="add">Add</el-button>
         </el-row>
     </el-main>
-    <!-- <el-footer>Footer</el-footer> -->
   </el-container>
-
-
-
-
-
-
-
-
-
 
    <!-- <b-form @submit.prevent="addUser">
     <div class="container mt-5">
@@ -112,6 +99,7 @@ export default {
       work:{
         title:null,
         siteLink:null,
+        pic:null
       }
     //   user: {
     //     name: {
@@ -141,3 +129,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.el-header{
+  .el-row{
+    .el-col.el-col-24{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+.el-main{
+  .el-row{
+    margin-bottom: 15px;
+  }
+}
+</style>

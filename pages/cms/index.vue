@@ -1,58 +1,46 @@
 <template>
-  <el-table
-    :data="works"
-    style="width: 100%">
-    <el-table-column
-      label="Date"
-      width="180">
-      <template slot-scope="scope">
-        <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.updated.toDate() | dateFilter }}</span>
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="Title"
-      width="180">
-      <template slot-scope="scope">
-        <el-popover trigger="hover" placement="top">
-          <p>Name: {{ scope.row.title }}</p>
-          <p>Addr: {{ scope.row.siteLink }}</p>
-          <div slot="reference" class="name-wrapper">
-            <el-tag size="medium">{{ scope.row.title }}</el-tag>
-          </div>
-        </el-popover>
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="Operations">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)">編集</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="remove(scope.row.id)">削除</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <!-- <el-container>
+  <el-container>
     <el-header>
-      <el-row type="flex" justify="center" align="middle">
+      <el-row>
         <el-col :span="24">
           <h1>My-Works-CMS</h1>
         </el-col>
       </el-row>
     </el-header>
     <el-main>
-      <el-row v-for="">
-        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-      </el-row>
+      <el-table
+        :data="works"
+        style="width: 100%">
+        <el-table-column
+          label="Date">
+          <template slot-scope="scope">
+            <i class="el-icon-time"></i>
+            <span style="margin-left: 10px">{{ scope.row.updated.toDate() | dateFilter }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Title">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{ scope.row.title }}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Operations">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="handleEdit(scope.$index, scope.row)">編集</el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="remove(scope.row.id)">削除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-main>
-    <el-footer>Footer</el-footer>
-  </el-container> -->
+  </el-container>
 
   <!-- <div class="container mt-5">
 
@@ -108,3 +96,36 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.el-header{
+  .el-row{
+    .el-col.el-col-24{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+/deep/.el-main{
+  padding: 0;
+  .el-table.el-table--fit.el-table--enable-row-hover{
+    .el-table__header-wrapper{
+      .el-table__header{
+        .has-gutter{
+          >tr{
+            >th{
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+    .el-table__row{
+      >td{
+        text-align: center;
+      }
+    }
+  }
+}
+</style>
