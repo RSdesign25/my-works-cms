@@ -21,17 +21,21 @@
             </el-input>
           </el-col>
         </el-row>
-        <el-row>
+        <!-- 画像を選択 -->
+<input type="file" @change="selectIcon">
+        <!-- <el-row>
           <el-col :span="24">
             <el-input placeholder="画像URLを入力してください" v-model="work.pic">
               <template slot="prepend">https://</template>
             </el-input>
           </el-col>
-        </el-row>
+        </el-row> -->
         <el-row type="flex" justify="center" align="center">
           <el-button type="info" plain @click="add">Add</el-button>
         </el-row>
     </el-main>
+    <el-footer><!-- ここに表示する -->
+<img :src="icon"></el-footer>
   </el-container>
 
    <!-- <b-form @submit.prevent="addUser">
@@ -100,7 +104,8 @@ export default {
         title:null,
         siteLink:null,
         pic:null
-      }
+      },
+      icon: ''
     //   user: {
     //     name: {
     //       first: null,
@@ -125,6 +130,19 @@ export default {
       this.$store.dispatch("works/add",this.work)
       this.work.title = "";
       this.work.siteLink = "";
+    },
+    selectIcon (e) {
+    // 選択した画像ファイルを取得
+    const file = e.target.files[0]
+    // refの中身が保存する場所のpathになる
+    const storageRef = firebase.storage().ref('images/sample.jpg')
+    storageRef.put(file)
+},
+async setIcon () {
+        const storageRef = firebase.storage().ref()
+        // childの中身にパスを指定してurlを取得する
+        const url = await storageRef.child('images/sample.jpg').getDownloadURL()
+        this.icon = url
     }
   }
 }
