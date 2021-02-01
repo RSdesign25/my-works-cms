@@ -15,7 +15,7 @@
           label="Date">
           <template slot-scope="scope">
             <i class="el-icon-time"></i>
-            <span style="margin-left: 10px">{{ scope.row.updated.toDate() | dateFilter }}</span>
+            <span style="margin-left: 10px">{{ scope.row.created.toDate() | dateFilter }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -78,7 +78,7 @@ export default {
   },
   computed:{
     works(){
-      return this.$store.state.works.works
+      return this.$store.getters['works/orderdWorks']
     }
   },
   methods:{

@@ -1,5 +1,6 @@
 import firebase from '~/plugins/firebase'
 import { firestoreAction } from 'vuexfire'
+import { _ } from 'core-js'
 
 const db = firebase.firestore()
 const worksRef = db.collection('works')
@@ -17,10 +18,8 @@ export const actions = {
     if(work.title.trim()) {
       worksRef.add({
         title: work.title,
-        siteLink:"https://" + work.siteLink,
-        pic: work.pic,
-        created: firebase.firestore.FieldValue.serverTimestamp(),
-        updated: firebase.firestore.FieldValue.serverTimestamp()
+        siteLink: work.siteLink,
+        created: firebase.firestore.FieldValue.serverTimestamp()
       })
     }
   }),
@@ -32,4 +31,10 @@ export const actions = {
       done: !todo.done
     })
   })
+}
+
+export const getters = {
+  orderdWorks: state => {
+    return _.sortBy(state.works,'created')
+  }
 }
