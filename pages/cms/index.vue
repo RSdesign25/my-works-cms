@@ -31,7 +31,7 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="handleEdit(scope.$index, scope.row)">編集</el-button>
+              @click="handleEdit(scope.row)">編集</el-button>
             <el-button
               size="mini"
               type="danger"
@@ -41,31 +41,6 @@
       </el-table>
     </el-main>
   </el-container>
-
-  <!-- <div class="container mt-5">
-
-    <div class="row justify-content-center mb-3">
-      <div class="col-12 col-sm-3">
-        <h2>users</h2>
-      </div>
-    </div>
-
-    <div class="row justify-content-center mb-3">
-      <div class="col-12 col-sm-2 font-weight-bold">title</div>
-      <div class="col-12 col-sm-1 font-weight-bold">Age</div>
-    </div>
-
-    <div v-for="(user, key) in $store.getters.getUsers" :key="key"
-         class="row justify-content-center mb-3">
-      <div class="col-12 col-sm-2">
-        {{ user.name.first}} {{ user.name.last}}
-      </div>
-      <div class="col-12 col-sm-1">
-        {{ user.age}}
-      </div>
-    </div>
-
-  </div> -->
 </template>
 
 
@@ -73,7 +48,6 @@
 import moment from "moment"
 export default {
   created() {
-    // this.$store.dispatch('fetchUsers')
     this.$store.dispatch("works/init")
   },
   computed:{
@@ -85,8 +59,8 @@ export default {
     remove(id){
       this.$store.dispatch("works/remove",id)
     },
-    handleEdit(index, row) {
-        console.log(index, row);
+    handleEdit(row) {
+      this.$store.dispatch("works/edit",row)
     },
   },
   filters:{

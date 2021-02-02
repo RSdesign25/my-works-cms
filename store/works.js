@@ -1,12 +1,12 @@
 import firebase from '~/plugins/firebase'
 import { firestoreAction } from 'vuexfire'
-import { _ } from 'core-js'
 
 const db = firebase.firestore()
 const worksRef = db.collection('works')
 
 export const state = () => ({
-  works: []
+  works: [],
+  editWork:{}
 })
 
 export const actions = {
@@ -23,6 +23,10 @@ export const actions = {
       })
     }
   }),
+  edit: firestoreAction((context, row) => {
+    state.editWork = row
+    console.log(state.editWork)
+  }),
   remove: firestoreAction((context, id) => {
     worksRef.doc(id).delete()
   }),
@@ -35,6 +39,6 @@ export const actions = {
 
 export const getters = {
   orderdWorks: state => {
-    return _.sortBy(state.works,'created')
+    return _.sortBy( state.works, 'created');
   }
 }
